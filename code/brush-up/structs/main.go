@@ -18,9 +18,25 @@ func main() {
 		firstName: "Daenam",
 		lastName:  "Kim",
 		contactInfo: contactInfo{
-			email:   "daenam.kim@gmail.com",
+			email:   "daenam@mail.com",
 			zipCode: 1340088,
 		},
 	}
-	fmt.Printf("%+v", daenam)
+
+	// pointer
+	// daenamPointer := &daenam
+	// daenamPointer.updateName("Dan")
+
+	// pointer shortcut
+	daenam.updateName("Dan")
+	daenam.print()
+}
+
+// Go copies all and pass in to function event it is a struct
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
 }
