@@ -14,5 +14,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(resp)
+	bs := make([]byte, 99999)
+	// read function will fill data until slice is full
+	// read function will not resize if it a slice is full
+	resp.Body.Read(bs)
+	fmt.Println(len(bs))
+	fmt.Println(string(bs))
 }
