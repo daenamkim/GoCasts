@@ -29,12 +29,18 @@ func main() {
 
 	// clearer (channel is blocking)
 	for l := range c {
-		go checkLink(l, c)
+		// if l is not passed in to a literal function,
+		// it will accept the last l value in outer scope(in for)
+		// because of time delay.
+		// Even time delay is not used it must use passing a parameter for the safety.
+		go func(l string) {
+			time.Sleep(5 * time.Second)
+			checkLink(l, c)
+		}(l)
 	}
 }
 
 func checkLink(link string, c chan string) {
-	time.Sleep(5 * time.Second)
 	_, err := http.Get(link)
 	if err != nil {
 		fmt.Println(link, "might be down!")
